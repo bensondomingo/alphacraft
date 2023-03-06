@@ -1,3 +1,5 @@
+import os
+
 from .base import *  # noqa
 from .base import env
 
@@ -58,5 +60,23 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#task-eager-propagates
 CELERY_TASK_EAGER_PROPAGATES = True
+
 # Your stuff...
 # ------------------------------------------------------------------------------
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+SHELL_PLUS = "ipython"
+SHELL_PLUS_PRINT_SQL = True
+NOTEBOOK_ARGUMENTS = [
+    "--ip",
+    "0.0.0.0",
+    "--port",
+    "88",
+    "--allow-root",
+    "--no-browser",
+]
+IPYTHON_ARGUMENTS = [
+    "--ext",
+    "django_extensions.management.notebook_extension",
+    "--debug",
+]
+IPYTHON_KERNEL_DISPLAY_NAME = "Django Shell-Plus"
