@@ -116,7 +116,6 @@ class OrderItem(TimeStampedModel):
 
 
 class Log(TimeStampedModel):
-    id = models.PositiveBigIntegerField(primary_key=True)
     thickness = models.PositiveSmallIntegerField()
     width = models.PositiveSmallIntegerField()
     length = models.PositiveSmallIntegerField()
@@ -127,14 +126,13 @@ class Log(TimeStampedModel):
 
     @property
     def volume(self):
-        return (self.thickness * self.width * self.width) / 12
+        return (self.thickness * self.width * self.length) / 12
 
     def __str__(self) -> str:
-        return f"<Log {self.id}: {self.thickness} x {self.width} x {self.length} : {int(self.volume)} bdft>"
+        return f"{self.id}: {self.thickness} x {self.width} x {self.length} : {int(self.volume)} bdft"
 
 
 class Lumber(TimeStampedModel):
-    id = models.PositiveBigIntegerField(primary_key=True)
     thickness = models.PositiveSmallIntegerField()
     width = models.PositiveSmallIntegerField()
     length = models.PositiveSmallIntegerField()
@@ -149,4 +147,6 @@ class Lumber(TimeStampedModel):
         return (self.thickness * self.width * self.width) / 12
 
     def __str__(self) -> str:
-        return f"<Lumber: {self.thickness} x {self.width} x {self.length} : {int(self.volume)} bdft>"
+        return (
+            f"{self.thickness} x {self.width} x {self.length} : {int(self.volume)} bdft"
+        )
